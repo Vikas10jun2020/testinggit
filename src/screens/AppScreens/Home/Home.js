@@ -3,6 +3,7 @@ import {
   FlatList,
   Image,
   LogBox,
+  NativeModules,
   ScrollView,
   StatusBar,
   View,
@@ -15,6 +16,7 @@ import {COLORS} from '../../../constants/colors';
 import {AuthContext} from '../../../context/AuthContext';
 import {getMenyList, getMenyType} from '../../../services/home/dashboard';
 import {styles} from './styles';
+const {MyModule} = NativeModules;
 import {navigationString} from '../../../constants/navigationStrings';
 const Home = ({navigation}) => {
   let finaldata = [];
@@ -127,9 +129,11 @@ const Home = ({navigation}) => {
           );
         })}
       <Button
-        title={'Open dropdown'}
+        title={'Open SDK'}
         onPress={() => {
-          navigation.navigate(navigationString.TEST);
+          MyModule.callNativeModule('Viaks', 'Soni', eventId => {
+            alert(eventId);
+          });
         }}
       />
       <View style={{height: 100}}></View>

@@ -4,6 +4,7 @@ import {
   Image,
   Keyboard,
   KeyboardAvoidingView,
+  NativeModules,
   StatusBar,
   Text,
   View,
@@ -18,7 +19,7 @@ import {AuthContext} from '../../../context/AuthContext';
 import {login} from '../../../services/user/user';
 import {styles} from './styles';
 import {setAsyncData} from '../../../utils/myUtility';
-
+const {MyModule} = NativeModules;
 const Login = ({navigation}) => {
   let userDetails = null;
   const {setIsLogin, setUserInfo, setIsLoading, updateHeader, userInfo} =
@@ -161,6 +162,14 @@ const Login = ({navigation}) => {
             />
           </View>
 
+          <Button
+            title={'Open SDK'}
+            onPress={() => {
+              MyModule.callNativeModule('Viaks', 'Soni', eventId => {
+                alert(eventId);
+              });
+            }}
+          />
           <Text
             onPress={() => {
               navigation.navigate(navigationString.WEB_VIEW);
